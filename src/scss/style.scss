@@ -1,0 +1,11 @@
+// Required
+@use "../../node_modules/scss-reset/reset";
+@use "../../node_modules/bootstrap/scss/bootstrap.scss" as *;
+
+.btn {
+  background-color: red;
+}
+
+.teste {
+  background-color: green;
+}
