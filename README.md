@@ -1,36 +1,29 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Microverse CAPSTONE I
+# Task's To do
 
-## CAPSTONE I 
+## To do 
 
-![screenshot](./screen_apresent.png)
-
-## CAPSTONE I (Mobile screenshots)
-
-![screenshot](./screen_mobile.png)
-
+![screenshot](./screenshot.png)
 
 
 ## Built With
 
 - HTML
-- CSS
+- SCSS
 - JS
 - Bootstrap 5
 
 
 ## Live Demo
 
-- [Live Demo](https://iwillteixeira.github.io/microverse-capstone/index.html)
-- [Video](https://www.loom.com/share/a36e924aea8142e9a58b31576618a657)
-
+- [Live Demo]()
 
 ## Getting Started
 
 To get a local copy up and running follow these simple example steps.
 
-`git clone git@github.com:iwillteixeira/microverse-capstone.git`
+`git clone git@github.com:iwillteixeira/to-do.git`
 
 ### Prerequisites
 
@@ -38,8 +31,8 @@ To contribute with this project you must instal the follow items:
 
 -NODE
 -NPM
--SASS
--GULP
+-WEBPACK
+
 ### Setup
 
 Dowload NPM and NODE
@@ -76,8 +69,6 @@ Give a ⭐️ if you like this project!
 
 - [Microverse](https://www.microverse.com)
 - [FreeCodeCamp](https://www.freecodecamp.com)
-- My Cat for stay calm and didn't walk above my keyboard
-- My Wife for her support
 
 ## 📝 License
 

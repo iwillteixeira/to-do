@@ -1,0 +1,108 @@
+.wrap {
+  position: relative;
+  max-width: 500px;
+  background: #fff;
+  min-height: 320px;
+  border: none;
+  box-shadow: 0 5px 8px 0 #bebabe;
+  background-color: #f1f2f5;
+
+  h2,
+  li,
+  p {
+    width: 100%;
+    margin: 0;
+    background-color: white;
+  }
+
+  h2 {
+    color: #545862;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 1rem;
+    line-height: 20px;
+    margin: 0;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  #task {
+    width: 100%;
+    padding: 15px;
+    padding: 0 40px 0 1rem;
+    line-height: 50px;
+    height: 50px;
+    font-style: italic;
+  }
+
+  ul {
+    width: 100%;
+  }
+
+  input,
+  li {
+    border: none;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    padding: 15px 15px;
+
+    p {
+      padding-left: 15px;
+    }
+
+    .mv {
+      color: #f1f2f5;
+    }
+  }
+
+  .form-check-input[type=checkbox] {
+    border: 1px solid #a8a8a8;
+  }
+
+  .clear {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    margin: 1rem auto;
+    display: block;
+  }
+}
+
+.top-list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-bottom: 1px solid #ebebeb;
+
+  .clear-all {
+    margin-right: 15px;
+    background-color: white;
+  }
+
+  .chromeless-input {
+    border: none !important;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+    overflow: hidden;
+    resize: none;
+  }
+
+  .todo .label,
+  .todo .chromeless-input {
+    width: 100%;
+    padding: 15px 0;
+    line-height: 20px;
+    word-wrap: break-word;
+  }
+}
