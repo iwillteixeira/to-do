@@ -17,7 +17,7 @@
 
 ## Live Demo
 
-- [Live Demo]()
+- [Live Demo](https://iwillteixeira.github.io/to-do/)
 
 ## Getting Started
 
