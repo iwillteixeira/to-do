@@ -1,5 +1,5 @@
 import { uPStoreValues } from './storevalues.js';
-
+//update array
 const updateArray = (idInt, arrayItems) => {
   const index = arrayItems.findIndex((e) => e.id === idInt);
   arrayItems[index].bool = false;
