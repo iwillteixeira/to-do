@@ -1,4 +1,5 @@
 import { uPStoreValues } from './storevalues.js';
+
 // update array
 const updateArray = (idInt, arrayItems) => {
   const index = arrayItems.findIndex((e) => e.id === idInt);
@@ -18,11 +19,12 @@ export const validateCheck = (elementCheck, arrayItems) => {
     uPStoreValues(arrayItems);
   }
 };
-export const updateItem = (array, arrayItems) => {
-  array.forEach((element) => {
-    element.addEventListener('change', () => {
-      element.classList.toggle('checked');
-      validateCheck(element, arrayItems);
-    });
-  });
+export const updateItem = (e, arrayItems) => {
+  validateCheck(e, arrayItems);
+};
+
+export const upgTask = (element, array) => {
+  const id = parseInt(element.getAttribute('data-label'), 10);
+  array[id].task = element.textContent;
+  uPStoreValues(array);
 };

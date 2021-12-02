@@ -9,10 +9,17 @@
 
   h2,
   li,
-  p {
+  label {
     width: 100%;
     margin: 0;
     background-color: white;
+  }
+
+  .editable-label:focus {
+    background-color: #e0e1e1;
+    color: #999797;
+    height: 100%;
+    padding: 14px;
   }
 
   h2 {
@@ -26,6 +33,10 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+  }
+
+  .reset {
+    cursor: pointer;
   }
 
   #task {
@@ -52,7 +63,7 @@
     align-items: center;
     padding: 15px 15px;
 
-    p {
+    label {
       padding-left: 15px;
     }
 
@@ -60,8 +71,9 @@
       text-decoration: line-through;
     }
 
-    .mv {
-      color: #f1f2f5;
+    .remove {
+      color: #dee1e4;
+      cursor: pointer;
     }
   }
 
@@ -91,22 +103,5 @@
   .clear-all {
     margin-right: 15px;
     background-color: white;
-  }
-
-  .chromeless-input {
-    border: none !important;
-    outline: none;
-    background: transparent;
-    box-shadow: none;
-    overflow: hidden;
-    resize: none;
-  }
-
-  .todo .label,
-  .todo .chromeless-input {
-    width: 100%;
-    padding: 15px 0;
-    line-height: 20px;
-    word-wrap: break-word;
   }
 }
