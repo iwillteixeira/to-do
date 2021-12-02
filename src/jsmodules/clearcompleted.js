@@ -1,12 +1,11 @@
 import { ul } from './selectors.js';
 import { uPStoreValues } from './storevalues.js';
 
-const ave = ul.querySelectorAll('input[type="checkbox"]');
-
 export const showClear = (array) => {
   array.forEach((e) => {
     e.parentElement.remove();
   });
+  const ave = ul.querySelectorAll('input[type="checkbox"]');
   ave.forEach((e, i) => {
     e.id = i + 1;
   });

@@ -31,9 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   clearbtn.addEventListener('click', () => {
     const checkedItems = document.querySelectorAll('.checked');
+
+    const array = lastArray();
+    clearCompleted(array);
     showClear(checkedItems);
-    const arrUp = setStoreValues(arrayItems);
-    clearCompleted(arrUp);
   });
 
   resetList.addEventListener('click', () => {
