@@ -7392,12 +7392,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const ave = _selectors_js__WEBPACK_IMPORTED_MODULE_0__.ul.querySelectorAll('input[type="checkbox"]');
-
 const showClear = (array) => {
   array.forEach((e) => {
     e.parentElement.remove();
   });
+  const ave = _selectors_js__WEBPACK_IMPORTED_MODULE_0__.ul.querySelectorAll('input[type="checkbox"]');
   ave.forEach((e, i) => {
     e.id = i + 1;
   });
@@ -7667,9 +7666,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.clearbtn.addEventListener('click', () => {
     const checkedItems = document.querySelectorAll('.checked');
+
+    const array = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__.lastArray)();
+    (0,_jsmodules_clearcompleted_js__WEBPACK_IMPORTED_MODULE_6__.clearCompleted)(array);
     (0,_jsmodules_clearcompleted_js__WEBPACK_IMPORTED_MODULE_6__.showClear)(checkedItems);
-    const arrUp = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__.setStoreValues)(arrayItems);
-    (0,_jsmodules_clearcompleted_js__WEBPACK_IMPORTED_MODULE_6__.clearCompleted)(arrUp);
   });
 
   _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.resetList.addEventListener('click', () => {
