@@ -7356,43 +7356,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class TaskAdd {
-  constructor(task, bool, id) {
+  constructor(task, completed, index) {
     this.task = task;
-    this.bool = bool;
-    this.id = id;
+    this.completed = completed;
+    this.index = index;
   }
 }
 
 const addItem = (item, array) => {
-  const sizeArr = JSON.parse(localStorage.getItem('taskList')).length;
-  const itemAdd = new TaskAdd(item, true, sizeArr);
+  const sizeArr = JSON.parse(localStorage.getItem('taskList')).length + 1;
+  const itemAdd = new TaskAdd(item, false, sizeArr);
   _selectors_js__WEBPACK_IMPORTED_MODULE_1__.ul.insertAdjacentHTML('beforeend',
-    `<li><input type="checkbox" class="form-check-input" name="checkboxL" id="${itemAdd.id}" value="checkedValue"><label contenteditable class="editable-label" data-label="${itemAdd.id}">${itemAdd.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${itemAdd.id}"></i></li>`);
+    `<li><input type="checkbox" class="form-check-input" name="checkboxL" id="${itemAdd.index}" value="checkedValue"><label contenteditable class="editable-label" data-label="${itemAdd.index}">${itemAdd.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${itemAdd.index}"></i></li>`);
 
   array.push(itemAdd);
   (0,_storevalues_js__WEBPACK_IMPORTED_MODULE_0__.uPStoreValues)(array);
 };
-
-/***/ }),
-
-/***/ "./src/jsmodules/array.js":
-/*!********************************!*\
-  !*** ./src/jsmodules/array.js ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-const firstDisplay = [
-  { task: 'Wash the dishes', bool: true, id: 0 },
-  { task: 'Build a To-Do app', bool: true, id: 1 },
-  { task: 'dont\' forget about the webpack', bool: true, id: 2 },
-];
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (firstDisplay);
 
 /***/ }),
 
@@ -7413,19 +7392,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const ave = _selectors_js__WEBPACK_IMPORTED_MODULE_0__.ul.querySelectorAll('input[type="checkbox"]');
+
 const showClear = (array) => {
   array.forEach((e) => {
     e.parentElement.remove();
   });
-  const ave = _selectors_js__WEBPACK_IMPORTED_MODULE_0__.ul.querySelectorAll('input[type="checkbox"]');
   ave.forEach((e, i) => {
-    e.id = i;
+    e.id = i + 1;
   });
 };
 const clearCompleted = (array) => {
-  const up = array.filter((e) => e.bool !== false);
+  const up = array.filter((e) => e.completed !== true);
   up.forEach((e, a) => {
-    e.id = a;
+    e.index = a + 1;
   });
   (0,_storevalues_js__WEBPACK_IMPORTED_MODULE_1__.uPStoreValues)(up);
 };
@@ -7449,11 +7429,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const removeItem = (item, array) => {
-  let idInt = item.getAttribute('data-list');
+  let idInt = item.previousElementSibling.previousElementSibling.id;
   const arrItem = [];
   arrItem.push(item);
   idInt = parseInt(idInt, 10);
-  const index = array.findIndex((e) => e.id === idInt);
+  const index = array.findIndex((e) => e.index === idInt);
   array.splice(index, 1);
   (0,_clearcompleted_js__WEBPACK_IMPORTED_MODULE_1__.showClear)(arrItem);
   (0,_storevalues_js__WEBPACK_IMPORTED_MODULE_0__.refresh)(array);
@@ -7499,7 +7479,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "refresh": () => (/* binding */ refresh)
 /* harmony export */ });
 const lastArray = () => JSON.parse(localStorage.getItem('taskList'));
-const setStoreValues = (e) => {
+const setStoreValues = () => {
+  const e = [];
   if (!localStorage.getItem('taskList') || localStorage.getItem('taskList') === undefined) {
     localStorage.setItem('taskList', JSON.stringify(e));
     return e;
@@ -7513,7 +7494,7 @@ const uPStoreValues = (e) => {
 
 const refresh = (array) => {
   array.forEach((e, a) => {
-    e.id = a;
+    e.index = a + 1;
   });
   uPStoreValues(array);
 };
@@ -7539,8 +7520,8 @@ __webpack_require__.r(__webpack_exports__);
 
 // update array
 const updateArray = (idInt, arrayItems) => {
-  const index = arrayItems.findIndex((e) => e.id === idInt);
-  arrayItems[index].bool = false;
+  const index = arrayItems.findIndex((e) => e.index === idInt);
+  arrayItems[index].completed = true;
   (0,_storevalues_js__WEBPACK_IMPORTED_MODULE_0__.uPStoreValues)(arrayItems);
 };
 
@@ -7551,8 +7532,8 @@ const validateCheck = (elementCheck, arrayItems) => {
     updateArray(idInt, arrayItems);
   } else {
     elementCheck.nextSibling.classList.remove('taskdone');
-    const index = arrayItems.findIndex((e) => e.id === idInt);
-    arrayItems[index].bool = true;
+    const index = arrayItems.findIndex((e) => e.index === idInt);
+    arrayItems[index].completed = false;
     (0,_storevalues_js__WEBPACK_IMPORTED_MODULE_0__.uPStoreValues)(arrayItems);
   }
 };
@@ -7561,7 +7542,8 @@ const updateItem = (e, arrayItems) => {
 };
 
 const upgTask = (element, array) => {
-  const id = parseInt(element.getAttribute('data-label'), 10);
+  let { id } = element.previousElementSibling;
+  id -= 1;
   array[id].task = element.textContent;
   (0,_storevalues_js__WEBPACK_IMPORTED_MODULE_0__.uPStoreValues)(array);
 };
@@ -7648,14 +7630,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_bootstrap_dist_js_bootstrap_bundle_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/bootstrap/dist/js/bootstrap.bundle.js */ "./node_modules/bootstrap/dist/js/bootstrap.bundle.js");
 /* harmony import */ var _node_modules_bootstrap_dist_js_bootstrap_bundle_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_bootstrap_dist_js_bootstrap_bundle_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scss/style.scss */ "./src/scss/style.scss");
-/* harmony import */ var _jsmodules_array_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./jsmodules/array.js */ "./src/jsmodules/array.js");
-/* harmony import */ var _jsmodules_update_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./jsmodules/update.js */ "./src/jsmodules/update.js");
-/* harmony import */ var _jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./jsmodules/storevalues.js */ "./src/jsmodules/storevalues.js");
-/* harmony import */ var _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./jsmodules/selectors.js */ "./src/jsmodules/selectors.js");
-/* harmony import */ var _jsmodules_add_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./jsmodules/add.js */ "./src/jsmodules/add.js");
-/* harmony import */ var _jsmodules_clearcompleted_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./jsmodules/clearcompleted.js */ "./src/jsmodules/clearcompleted.js");
-/* harmony import */ var _jsmodules_remove_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./jsmodules/remove.js */ "./src/jsmodules/remove.js");
-
+/* harmony import */ var _jsmodules_update_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./jsmodules/update.js */ "./src/jsmodules/update.js");
+/* harmony import */ var _jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./jsmodules/storevalues.js */ "./src/jsmodules/storevalues.js");
+/* harmony import */ var _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./jsmodules/selectors.js */ "./src/jsmodules/selectors.js");
+/* harmony import */ var _jsmodules_add_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./jsmodules/add.js */ "./src/jsmodules/add.js");
+/* harmony import */ var _jsmodules_clearcompleted_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./jsmodules/clearcompleted.js */ "./src/jsmodules/clearcompleted.js");
+/* harmony import */ var _jsmodules_remove_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./jsmodules/remove.js */ "./src/jsmodules/remove.js");
 
 
 
@@ -7666,59 +7646,59 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const arrayItems = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_4__.setStoreValues)(_jsmodules_array_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  const arrayItems = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__.setStoreValues)();
   arrayItems.forEach((e) => {
-    if (e.bool === false) {
-      _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.ul.insertAdjacentHTML('beforeend',
-        `<li><input type="checkbox" class="form-check-input checked" name="checkboxL" id="${e.id}" value="checkedValue" checked><label contenteditable class="editable-label taskdone" data-label="${e.id}">${e.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${e.id}"></i></li>`);
+    if (e.completed === true) {
+      _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.ul.insertAdjacentHTML('beforeend',
+        `<li><input type="checkbox" class="form-check-input checked" name="checkboxL" id="${e.index}" value="checkedValue" checked><label contenteditable class="editable-label taskdone" data-label="${e.index}">${e.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${e.index}"></i></li>`);
     } else {
-      _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.ul.insertAdjacentHTML('beforeend',
-        `<li><input type="checkbox" class="form-check-input" name="checkboxL" id="${e.id}" value="checkedValue"><label contenteditable="true" class="editable-label" data-label="${e.id}">${e.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${e.id}"></i></li>`);
+      _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.ul.insertAdjacentHTML('beforeend',
+        `<li><input type="checkbox" class="form-check-input" name="checkboxL" id="${e.index}" value="checkedValue"><label contenteditable="true" class="editable-label" data-label="${e.index}">${e.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${e.index}"></i></li>`);
     }
   });
 
-  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.inputTask.addEventListener('keyup', (e) => {
+  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.inputTask.addEventListener('keyup', (e) => {
     e.preventDefault();
     if (e.keyCode === 13) {
-      const array = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_4__.lastArray)();
-      (0,_jsmodules_add_js__WEBPACK_IMPORTED_MODULE_6__.addItem)(_jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.inputTask.value, array);
-      _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.inputTask.value = '';
+      const array = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__.lastArray)();
+      (0,_jsmodules_add_js__WEBPACK_IMPORTED_MODULE_5__.addItem)(_jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.inputTask.value, array);
+      _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.inputTask.value = '';
     }
   });
-  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.clearbtn.addEventListener('click', () => {
+  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.clearbtn.addEventListener('click', () => {
     const checkedItems = document.querySelectorAll('.checked');
-    (0,_jsmodules_clearcompleted_js__WEBPACK_IMPORTED_MODULE_7__.showClear)(checkedItems);
-    const arrUp = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_4__.setStoreValues)(arrayItems);
-    (0,_jsmodules_clearcompleted_js__WEBPACK_IMPORTED_MODULE_7__.clearCompleted)(arrUp);
+    (0,_jsmodules_clearcompleted_js__WEBPACK_IMPORTED_MODULE_6__.showClear)(checkedItems);
+    const arrUp = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__.setStoreValues)(arrayItems);
+    (0,_jsmodules_clearcompleted_js__WEBPACK_IMPORTED_MODULE_6__.clearCompleted)(arrUp);
   });
 
-  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.resetList.addEventListener('click', () => {
+  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.resetList.addEventListener('click', () => {
     const array = [];
-    (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_4__.uPStoreValues)(array);
-    while (_jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.ul.firstChild) {
-      _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.ul.removeChild(_jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.ul.firstChild);
+    (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__.uPStoreValues)(array);
+    while (_jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.ul.firstChild) {
+      _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.ul.removeChild(_jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.ul.firstChild);
     }
   });
 
-  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.ul.addEventListener('click', (e) => {
-    const array = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_4__.lastArray)();
+  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.ul.addEventListener('click', (e) => {
+    const array = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__.lastArray)();
     if (e.target.getAttribute('data-list')) {
       const element = e.target;
-      (0,_jsmodules_remove_js__WEBPACK_IMPORTED_MODULE_8__.removeItem)(element, array);
+      (0,_jsmodules_remove_js__WEBPACK_IMPORTED_MODULE_7__.removeItem)(element, array);
     }
   });
 
-  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.ul.addEventListener('change', (e) => {
-    const array = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_4__.lastArray)();
+  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.ul.addEventListener('change', (e) => {
+    const array = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__.lastArray)();
     e.target.classList.toggle('checked');
-    (0,_jsmodules_update_js__WEBPACK_IMPORTED_MODULE_3__.updateItem)(e.target, array);
+    (0,_jsmodules_update_js__WEBPACK_IMPORTED_MODULE_2__.updateItem)(e.target, array);
   });
 
-  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_5__.ul.addEventListener('input', (e) => {
-    const array = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_4__.lastArray)();
+  _jsmodules_selectors_js__WEBPACK_IMPORTED_MODULE_4__.ul.addEventListener('input', (e) => {
+    const array = (0,_jsmodules_storevalues_js__WEBPACK_IMPORTED_MODULE_3__.lastArray)();
     if (e.target.getAttribute('data-label')) {
       const element = e.target;
-      (0,_jsmodules_update_js__WEBPACK_IMPORTED_MODULE_3__.upgTask)(element, array);
+      (0,_jsmodules_update_js__WEBPACK_IMPORTED_MODULE_2__.upgTask)(element, array);
     }
   });
 });
