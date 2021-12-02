@@ -1,6 +1,5 @@
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.js';
 import './scss/style.scss';
-import firstDisplay from './jsmodules/array.js';
 import { updateItem, upgTask } from './jsmodules/update.js';
 import { setStoreValues, lastArray, uPStoreValues } from './jsmodules/storevalues.js';
 import {
@@ -11,14 +10,14 @@ import { clearCompleted, showClear } from './jsmodules/clearcompleted.js';
 import { removeItem } from './jsmodules/remove.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const arrayItems = setStoreValues(firstDisplay);
+  const arrayItems = setStoreValues();
   arrayItems.forEach((e) => {
-    if (e.bool === false) {
+    if (e.completed === true) {
       ul.insertAdjacentHTML('beforeend',
-        `<li><input type="checkbox" class="form-check-input checked" name="checkboxL" id="${e.id}" value="checkedValue" checked><label contenteditable class="editable-label taskdone" data-label="${e.id}">${e.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${e.id}"></i></li>`);
+        `<li><input type="checkbox" class="form-check-input checked" name="checkboxL" id="${e.index}" value="checkedValue" checked><label contenteditable class="editable-label taskdone" data-label="${e.index}">${e.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${e.index}"></i></li>`);
     } else {
       ul.insertAdjacentHTML('beforeend',
-        `<li><input type="checkbox" class="form-check-input" name="checkboxL" id="${e.id}" value="checkedValue"><label contenteditable="true" class="editable-label" data-label="${e.id}">${e.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${e.id}"></i></li>`);
+        `<li><input type="checkbox" class="form-check-input" name="checkboxL" id="${e.index}" value="checkedValue"><label contenteditable="true" class="editable-label" data-label="${e.index}">${e.task}</label> <i class="fas fa-trash-alt remove" aria-hidden="true" data-list="${e.index}"></i></li>`);
     }
   });
 

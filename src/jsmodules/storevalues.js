@@ -1,5 +1,6 @@
 export const lastArray = () => JSON.parse(localStorage.getItem('taskList'));
-export const setStoreValues = (e) => {
+export const setStoreValues = () => {
+  const e = [];
   if (!localStorage.getItem('taskList') || localStorage.getItem('taskList') === undefined) {
     localStorage.setItem('taskList', JSON.stringify(e));
     return e;
@@ -13,7 +14,7 @@ export const uPStoreValues = (e) => {
 
 export const refresh = (array) => {
   array.forEach((e, a) => {
-    e.id = a;
+    e.index = a + 1;
   });
   uPStoreValues(array);
 };
