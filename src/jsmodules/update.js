@@ -1,8 +1,9 @@
 import { uPStoreValues } from './storevalues.js';
+
 // update array
 const updateArray = (idInt, arrayItems) => {
-  const index = arrayItems.findIndex((e) => e.id === idInt);
-  arrayItems[index].bool = false;
+  const index = arrayItems.findIndex((e) => e.index === idInt);
+  arrayItems[index].completed = true;
   uPStoreValues(arrayItems);
 };
 
@@ -13,16 +14,18 @@ export const validateCheck = (elementCheck, arrayItems) => {
     updateArray(idInt, arrayItems);
   } else {
     elementCheck.nextSibling.classList.remove('taskdone');
-    const index = arrayItems.findIndex((e) => e.id === idInt);
-    arrayItems[index].bool = true;
+    const index = arrayItems.findIndex((e) => e.index === idInt);
+    arrayItems[index].completed = false;
     uPStoreValues(arrayItems);
   }
 };
-export const updateItem = (array, arrayItems) => {
-  array.forEach((element) => {
-    element.addEventListener('change', () => {
-      element.classList.toggle('checked');
-      validateCheck(element, arrayItems);
-    });
-  });
+export const updateItem = (e, arrayItems) => {
+  validateCheck(e, arrayItems);
+};
+
+export const upgTask = (element, array) => {
+  let { id } = element.previousElementSibling;
+  id -= 1;
+  array[id].task = element.textContent;
+  uPStoreValues(array);
 };
