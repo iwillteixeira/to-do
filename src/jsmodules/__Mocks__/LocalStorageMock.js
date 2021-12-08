@@ -11,4 +11,4 @@ export default class LocalStorageMock {
     const tempVal = this.list[index];
     return tempVal;
   }
-};
+}
