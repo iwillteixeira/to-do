@@ -1,7 +1,7 @@
 import { uPStoreValues } from './storevalues.js';
 
 // update array
-const updateArray = (idInt, arrayItems) => {
+export const updateArray = (idInt, arrayItems) => {
   const index = arrayItems.findIndex((e) => e.index === idInt);
   arrayItems[index].completed = true;
   uPStoreValues(arrayItems);
