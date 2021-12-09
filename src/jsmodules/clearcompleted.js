@@ -16,4 +16,5 @@ export const clearCompleted = (array) => {
     e.index = a + 1;
   });
   uPStoreValues(up);
+  return up;
 };
