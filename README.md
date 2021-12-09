@@ -47,6 +47,7 @@ Install the packages globally and after that:
 `npx hint .`
 `npx stylelint "**/*.scss"`
 `npx eslint .`
+`npm test`
 ## Authors
 
 👤 **Will Teixeira**
